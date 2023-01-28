@@ -207,6 +207,7 @@ class Board {
 
     reset() {
         this.score = 0;
+        this.handleScore(0);
         this.grid = this.generateWhiteBoard();
         this.gameOver = false;
         this.drawBoard();
@@ -434,10 +435,13 @@ class Brick {
 
 function generateNewBrick() {
     brick = new Brick(Math.floor(Math.random() * 10) % BRICK_LAYOUT.length);
+    brick.draw();
 }
 
 board = new Board(ctx);
 board.drawBoard();
+
+let refresh;
 
 document.getElementById("play").addEventListener("click", () => {
     board.startGameSound.play();
@@ -448,7 +452,9 @@ document.getElementById("play").addEventListener("click", () => {
 
     generateNewBrick();
 
-    const refresh = setInterval(() => {
+    clearInterval(refresh);
+
+    refresh = setInterval(() => {
         if (!board.gameOver) {
             brick.moveDown();
         } else {
@@ -475,7 +481,3 @@ document.addEventListener("keydown", (e) => {
         }
     }
 });
-
-// board.drawCell(1, 1, 1);
-
-console.log(board.grid);
