@@ -411,6 +411,7 @@ class Brick {
     handleLanded() {
         if (this.rowPos <= 0) {
             board.handleGameOver();
+            return;
         }
 
         for (let row = 0; row < this.layout[this.activeIndex].length; row++) {
